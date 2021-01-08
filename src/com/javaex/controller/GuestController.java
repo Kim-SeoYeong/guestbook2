@@ -57,10 +57,13 @@ public class GuestController extends HttpServlet {
 			int no = Integer.parseInt(request.getParameter("no"));
 			//new GuestDao
 			GuestDao guestDao = new GuestDao();
+			guestDao.getGuest(no);
+			
+			//그러게.. 생각해보니 GuestVo에 다시 넣어줄 필요가 없었네..
 			//한명만 조회해오기
-			GuestVo guestVo = guestDao.getGuest(no);
+			//GuestVo guestVo = guestDao.getGuest(no);
 			//데이터 전달
-			request.setAttribute("gvo", guestVo);
+			//request.setAttribute("gvo", guestVo);
 			
 			//포워드
 			RequestDispatcher rd = request.getRequestDispatcher("./WEB-INF/deleteForm.jsp");
