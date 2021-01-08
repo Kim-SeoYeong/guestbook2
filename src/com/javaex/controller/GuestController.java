@@ -52,19 +52,7 @@ public class GuestController extends HttpServlet {
 			response.sendRedirect("/guestbook2/gctrl?action=guestList");
 		} else if ("guestDelForm".equals(action)) {
 			//action = guestDelForm
-			
-			//파라미터 값
-			int no = Integer.parseInt(request.getParameter("no"));
-			//new GuestDao
-			GuestDao guestDao = new GuestDao();
-			guestDao.getGuest(no);
-			
-			//그러게.. 생각해보니 GuestVo에 다시 넣어줄 필요가 없었네..
-			//한명만 조회해오기
-			//GuestVo guestVo = guestDao.getGuest(no);
-			//데이터 전달
-			//request.setAttribute("gvo", guestVo);
-			
+			//그러게.. 생각해보니 GuestVo에 다시 넣어줄 필요가 없었네.. 없애버리고 수정
 			//포워드
 			RequestDispatcher rd = request.getRequestDispatcher("./WEB-INF/deleteForm.jsp");
 			rd.forward(request, response);
