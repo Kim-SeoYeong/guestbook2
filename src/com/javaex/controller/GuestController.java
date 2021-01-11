@@ -11,12 +11,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.javaex.dao.GuestDao;
+import com.javaex.util.WebUtil;
 import com.javaex.vo.GuestVo;
 
 @WebServlet("/gctrl")
 public class GuestController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//한글꺠짐 방지
+		request.setCharacterEncoding("UTF-8");
+		
 		//파라미터의 action 값을 읽어오도록
 		String action = request.getParameter("action");
 		System.out.println(action);
@@ -31,8 +36,12 @@ public class GuestController extends HttpServlet {
 			request.setAttribute("gList", guestList);	//(실제데이터에 붙여줄 별명, 실제데이터)
 			
 			//포워드 과정
+			/*
 			RequestDispatcher rd = request.getRequestDispatcher("./WEB-INF/guestList.jsp");
 			rd.forward(request, response);
+			*/
+			WebUtil.forward(request, response, "./WEB-INF/guestList.jsp");
+			
 		} else if ("guestInsert".equals(action)) {
 			//action = guestInsert
 			//방명록 insert
@@ -49,13 +58,19 @@ public class GuestController extends HttpServlet {
 			guestDao.guestInsert(guestVo);
 			
 			//insert 하고 다시 guestList로
-			response.sendRedirect("/guestbook2/gctrl?action=guestList");
+			//response.sendRedirect("/guestbook2/gctrl?action=guestList");
+			
+			WebUtil.redirect(request, response, "/guestbook2/gctrl?action=guestList");
+			
 		} else if ("guestDelForm".equals(action)) {
 			//action = guestDelForm
 			//그러게.. 생각해보니 GuestVo에 다시 넣어줄 필요가 없었네.. 없애버리고 수정
 			//포워드
-			RequestDispatcher rd = request.getRequestDispatcher("./WEB-INF/deleteForm.jsp");
-			rd.forward(request, response);
+			//RequestDispatcher rd = request.getRequestDispatcher("./WEB-INF/deleteForm.jsp");
+			//rd.forward(request, response);
+			
+			WebUtil.forward(request, response, "./WEB-INF/deleteForm.jsp");
+			
 		} else if ("guestDelete".equals(action)) {
 			//action = guestDelete
 			//방명록 delete
@@ -71,10 +86,12 @@ public class GuestController extends HttpServlet {
 			int count = guestDao.guestDelete(guestVo);
 			
 			if(count == 1) {
-				response.sendRedirect("/guestbook2/gctrl?action=guestList");
+				//response.sendRedirect("/guestbook2/gctrl?action=guestList");
+				WebUtil.redirect(request, response, "/guestbook2/gctrl?action=guestList");
 			} else {
-				RequestDispatcher rd = request.getRequestDispatcher("./WEB-INF/returnDelete.jsp");
-				rd.forward(request, response);
+				//RequestDispatcher rd = request.getRequestDispatcher("./WEB-INF/returnDelete.jsp");
+				//rd.forward(request, response);
+				WebUtil.forward(request, response, "./WEB-INF/returnDelete.jsp");
 			}
 			
 		}
@@ -82,7 +99,7 @@ public class GuestController extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//doGet(request, response);
+		doGet(request, response);
 	}
 
 }

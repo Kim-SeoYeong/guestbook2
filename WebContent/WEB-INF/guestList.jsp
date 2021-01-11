@@ -3,6 +3,7 @@
 <%@ page import = "com.javaex.vo.GuestVo" %>
 
 <%
+	request.setCharacterEncoding("UTF-8");
 	List<GuestVo> guestList = (List<GuestVo>)request.getAttribute("gList");
 	
 	System.out.println(guestList);	//toString() 찍어보자
@@ -14,7 +15,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="/guestbook2/gctrl" method="get">
+	<form action="/guestbook2/gctrl" method="post">
 		<table border="1" width="500">
 			<tr>
 				<td>이름</td>

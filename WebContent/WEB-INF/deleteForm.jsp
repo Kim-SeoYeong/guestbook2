@@ -2,6 +2,7 @@
 <%@ page import = "com.javaex.vo.GuestVo" %>
 
 <%
+	request.setCharacterEncoding("UTF-8");
 	//어차피 no만 필요하니까 아래에 내용은 할 필요가 없었음..
 	//GuestVo guestVo = (GuestVo)request.getAttribute("gvo");	//Object타입이기 때문에 형변환 시켜줘야함.
 	//toString() 출력해보자
@@ -17,7 +18,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="/guestbook2/gctrl" method="get">
+	<form action="/guestbook2/gctrl" method="post">
 		비밀번호 : <input type="password" name="password">
 		<button type="submit">확인</button>
 		<input type="hidden" name="no" value=<%=no%>>
