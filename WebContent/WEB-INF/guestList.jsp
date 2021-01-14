@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "java.util.List" %>
 <%@ page import = "com.javaex.vo.GuestVo" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<%-- 
 <%
 	request.setCharacterEncoding("UTF-8");
 	List<GuestVo> guestList = (List<GuestVo>)request.getAttribute("gList");
 	
 	System.out.println(guestList);	//toString() 찍어보자
-%>
+%> 
+--%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,22 +41,22 @@
 	</form>
 	
 	<br><br>
-	
-	<%for(int i = 0; i < guestList.size(); i++) {%>
+
+	<c:forEach items="${requestScope.gList}" var="guestList">
 		<table border="1" width="500">
 			<tr>
-				<td><%=guestList.get(i).getNo() %></td>
-				<td><%=guestList.get(i).getName() %></td>
-				<td><%=guestList.get(i).getRegDate() %></td>
-				<td><a href="/guestbook2/gctrl?action=guestDelForm&no=<%=guestList.get(i).getNo()%>">삭제</a></td>
+				<td>${guestList.no}</td>
+				<td>${guestList.name}</td>
+				<td>${guestList.regDate}</td>
+				<td><a href="/guestbook2/gctrl?action=guestDelForm&no=${guestList.no}">삭제</a></td>
 			</tr>
 			<tr>
 				<td colspan="4">
-					<%=guestList.get(i).getContent() %>
+					${guestList.content}
 				</td>
 			</tr>
 		</table>
 		<br>
-	<%} %>
+	</c:forEach>
 </body>
 </html>
